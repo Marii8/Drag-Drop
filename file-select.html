@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ファイル選択</title>
+</head>
+<body>
+    <input type="file" id='selmulti' multiple>
+
+
+    <script>
+/*        let obj1 = document.getElementById('selfile');
+        obj1.addEventListener('change', function(evt) {
+            let file = evt.target.files;
+            console.log(file);
+            window.alert(file[0].name + 'を取得しました');
+        }, false); */
+
+    let obj2 = document.getElementById('selmulti');
+    obj2.addEventListener('change', function(evt) {
+        let file = evt.target.files;
+        let num = file.length;
+
+        for(let i = 0; i < num; i++) {
+            alert(file[i].name);
+        }
+        console.log(file);
+    }, false);
+
+
+    </script>
+</body>
+</html>
