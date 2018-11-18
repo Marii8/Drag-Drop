@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TextFileの読み込み</title>
+</head>
+<body>
+  <form name="test">
+    <input type="file" id="selfile"><br>
+    <textarea name="txt" cols="50" rows="10"></textarea>
+  </form>
+
+<!-- 
+変数 = new FileReader()
+FileReaderを作成し、変数に格納します。
+
+変数.readAsText(Fileオブジェクト)
+テキスト形式でファイルを読み込みます。
+
+変数.result
+読込結果を取り出します。
+ -->
+
+
+  <script>
+    let obj1 = document.getElementById('selfile');
+    //ファイルが選択された時の処理
+    obj1.addEventListener('change', function(evt) {
+      //選択したファイルを変数に格納する
+      let file = evt.target.files;
+
+      //次に、FileReaderを作成して変数readerに格納する
+      let reader = new FileReader();
+
+      //FileReader()インスタンスのreadAsText()を使って取得したファイルfileをテキスト形式で読み込みをする。
+      reader.readAsText(file[0]);
+
+      //上記の読み込みが終了したら、その結果、reader.resultをテキストエリアの中に書き出す。
+      reader.onload = function(ev) {
+        document.test.txt.value = reader.result;
+      }
+
+
+    })
+  </script>
+
+
+
+</body>
+</html>

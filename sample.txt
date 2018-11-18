@@ -1,0 +1,6 @@
+﻿サンプルテキストファイル
+
+JavaScriptでローカルのテキストファイルを読み込みます。
+テキスト読込にはFileReaderを利用します。
+
+http://www.pori2.net/html5/File/020.html
