@@ -5,53 +5,73 @@
     <title>Drag&Drop</title>
 
     <style type="text/css">
-        div.dd{ width:100%; height:100px }
-        div#dragarea{ background-color:#80ffff }
-        div#droparea{ background-color:#ffff80 }
-        div.dd div{ width:100px; height:100px; float:left }
-        div#red { background-color:red }
-        div#green { background-color:green }
+        div#dragarea{width: 100%; height:100px; background-color: #80ffff;}
+        div#square{width:100px; height:100px; background-color: red;}
+        div.dp{width:25%; height: 100px; float: left; background-color: #ffff80;}
+        br.clr{clear: left;}
     </style>
 
 </head>
 <body>
-    <div id="dragarea" class="dd">
-      <div id="red" draggable="true"></div>
-      <div id="green"></div>
+
+    <div id="dragarea">
+        <div id="square" draggable="true"></div>
     </div>
-    <div id="droparea" class="dd"></div>
-
-
-
-
-
+    <div class="dp"></div>
+    <div class="dp" id="dparea"></div> <!-- ここにドラッグできるようにするためidをつけた -->
+    <div class="dp"></div>
+    <div class="dp"></div>
+    <br class="clr">
 
 <script>
-    let obj1 = document.getElementById('red');
-    let obj2 = document.getElementById('droparea');
-    let dimg = document.getElementById('dragarea');
+    let obj1 = document.getElementById('square');
+    let obj2 = document.getElementById('dparea');
 
-    obj1.addEventListener('dragstart', function(evt) {
-        evt.dataTransfer.setData('text/plain', evt.target.id);
-        evt.dataTransfer.setDragImage(dimg, 100, 50); //ドラッグしている時のキャプチャを出す命令
-        evt.stopPropagation();
-    }, false);
-
-    obj2.addEventListener('drop', function(evt) {
-        let id = evt.dataTransfer.getData('text/plain');
-        let obj3 = document.getElementById(id);
-        if (obj3) {
-            obj2.appendChild(obj3);
+// スタイル変更関数efectを用意
+    function efect(flg) {
+        if(flg){
+            obj2.style.backgroundColor = '#ff80ff'; //ピンク色にする
+        } else {
+            obj2.style.backgroundColor = '#ffff80';
         }
-        evt.preventDefault();
-    }, false);
+    };
 
-    obj2.addEventListener('dragstart', function(evt) {
-        evt.preventDefault();
-    }, false);
-    obj2.addEventListener('dragover', function(evt) {
-        evt.preventDefault();
-    }, false);
+obj1.addEventListener('dragstart', function(evt) {
+    evt.dataTransfer.setData("text/plain", evt.target.id);
+        console.log(evt.target.id); //square
+    evt.stopPropagation();
+}, false);
+
+
+console.log(obj2);
+
+obj2.addEventListener('drop', function(evt) {
+        console.log('dropped');
+    let id = evt.dataTransfer.getData("text/plain");
+        console.log(id);
+    let obj3 = document.getElementById(id);
+        console.log(obj3);
+    if ( obj3 ){ obj2.appendChild(obj3) }
+    evt.preventDefault();
+    efect(false);
+}, false);
+
+
+obj2.addEventListener('dragenter', function(evt) { //ドラッグ要素が入って来た時に発動する処理
+    console.log('dragovered');
+    evt.preventDefault();
+    efect(true); //ここでスタイル変更をする関数を発動
+}, false);
+
+obj2.addEventListener('dragleave', function() {
+    console.log('dragleft');
+    efect(false);
+}, false);
+
+obj2.addEventListener('dragover', function(evt) {
+    evt.preventDefault();
+}, false);
+
 
 </script>
 
