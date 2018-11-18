@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ファイル選択</title>
+</head>
+<body>
+    <input type="file" id='selfile'>
+
+
+    <script>
+        let obj1 = document.getElementById('selfile');
+        obj1.addEventListener('change', function(evt) {
+            let file = evt.target.files;
+            console.log(file);
+            window.alert(file[0].name + 'を取得しました');
+        }, false);
+    </script>
+</body>
+</html>
